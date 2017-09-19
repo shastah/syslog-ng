@@ -13,6 +13,7 @@ SCL_SUBDIRS	= \
 	hdfs		\
 	apache		\
 	cisco		\
+	ewmm		\
 	port514		\
 	loggly		\
 	logmatic	\
