@@ -10,6 +10,8 @@ modules_appmodel_libappmodel_la_SOURCES	=	\
 	modules/appmodel/appmodel-plugin.c	\
 	modules/appmodel/appmodel-context.c	\
 	modules/appmodel/appmodel-context.h	\
+	modules/appmodel/app-parser-generator.c \
+	modules/appmodel/app-parser-generator.h \
 	modules/appmodel/application.c		\
 	modules/appmodel/application.h		\
 	modules/appmodel/appmodel-grammar.y

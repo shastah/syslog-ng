@@ -23,10 +23,17 @@
 
 #include "cfg-parser.h"
 #include "appmodel-parser.h"
+#include "app-parser-generator.h"
 #include "plugin.h"
 #include "plugin-types.h"
 
 extern CfgParser appmodel_parser;
+
+static gpointer
+app_parser_construct(Plugin *p)
+{
+  return app_parser_generator_new(p->type, p->name);
+}
 
 static Plugin appmodel_plugins[] =
 {
@@ -35,6 +42,11 @@ static Plugin appmodel_plugins[] =
     .name = "application",
     .parser = &appmodel_parser,
   },
+  {
+    .type = LL_CONTEXT_PARSER | LL_CONTEXT_FLAG_GENERATOR,
+    .name = "app-parser",
+    .construct = app_parser_construct
+  }
 };
 
 gboolean
