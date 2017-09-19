@@ -320,32 +320,34 @@ log_macro_expand(GString *result, gint id, gboolean escape, const LogTemplateOpt
         }
       break;
     case M_MSGHDR:
-      if ((msg->flags & LF_LEGACY_MSGHDR))
-        {
-          /* fast path for now, as most messages come from legacy devices */
+      {
+        gssize len;
+        const gchar *p;
 
-          _result_append_value(result, msg, LM_V_LEGACY_MSGHDR, escape);
-        }
-      else
-        {
-          /* message, complete with program name and pid */
-          gssize len;
+        p = log_msg_get_value(msg, LM_V_LEGACY_MSGHDR, &len);
+        if (len > 0)
+          result_append(result, p, len, escape);
+        else
+          {
+            /* message, complete with program name and pid */
+            gssize len;
 
-          len = result->len;
-          _result_append_value(result, msg, LM_V_PROGRAM, escape);
-          if (len != result->len)
-            {
-              const gchar *pid = log_msg_get_value(msg, LM_V_PID, &len);
-              if (len > 0)
-                {
-                  result_append(result, "[", 1, FALSE);
-                  result_append(result, pid, len, escape);
-                  result_append(result, "]", 1, FALSE);
-                }
-              result_append(result, ": ", 2, FALSE);
-            }
-        }
-      break;
+            len = result->len;
+            _result_append_value(result, msg, LM_V_PROGRAM, escape);
+            if (len != result->len)
+              {
+                const gchar *pid = log_msg_get_value(msg, LM_V_PID, &len);
+                if (len > 0)
+                  {
+                    result_append(result, "[", 1, FALSE);
+                    result_append(result, pid, len, escape);
+                    result_append(result, "]", 1, FALSE);
+                  }
+                result_append(result, ": ", 2, FALSE);
+              }
+          }
+        break;
+      }
     case M_MESSAGE:
       _result_append_value(result, msg, LM_V_MESSAGE, escape);
       break;

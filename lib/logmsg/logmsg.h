@@ -126,12 +126,13 @@ enum
 
   LF_CHAINED_HOSTNAME  = 0x00010000,
 
-  /* originally parsed from RFC 3164 format and the legacy message header
-   * was saved in $LEGACY_MSGHDR. This flag is a hack to avoid a hash lookup
-   * in the fast path and indicates that the parser has saved the legacy
-   * message header intact in a value named LEGACY_MSGHDR.
+  /* NOTE: this flag is now unused, was originally parsed from RFC 3164
+   * format and the legacy message header was saved in $LEGACY_MSGHDR.  This
+   * flag is a hack to avoid a hash lookup in the fast path and indicates
+   * that the parser has saved the legacy message header intact in a value
+   * named LEGACY_MSGHDR.
    */
-  LF_LEGACY_MSGHDR    = 0x00020000,
+  __UNUSED_LF_LEGACY_MSGHDR    = 0x00020000,
 };
 
 typedef struct _LogMessageQueueNode
