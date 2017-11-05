@@ -15,6 +15,7 @@ SCL_SUBDIRS	= \
 	cisco		\
 	ewmm		\
 	port514		\
+	sudo		\
 	loggly		\
 	logmatic	\
 	snmptrap        \
