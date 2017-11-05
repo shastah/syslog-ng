@@ -7,7 +7,7 @@
 #include "config_parse_lib.h"
 
 Application *
-_parse_application(const char *appmodel, const gchar *name, const gchar *specialization)
+_parse_application(const char *appmodel, const gchar *name, const gchar *topic)
 {
   AppModelContext *ac;
 
@@ -15,7 +15,7 @@ _parse_application(const char *appmodel, const gchar *name, const gchar *special
   cr_assert(parse_config(appmodel, LL_CONTEXT_ROOT, NULL, NULL),
             "Parsing the given configuration failed: %s", appmodel);
   ac = appmodel_get_context(configuration);
-  return appmodel_context_lookup_application(ac, name, specialization);
+  return appmodel_context_lookup_application(ac, name, topic);
 }
 
 Test(appmodel, empty_application_can_be_parsed_properly)
@@ -25,7 +25,7 @@ Test(appmodel, empty_application_can_be_parsed_properly)
   app = _parse_application("application foobar[*] {};", "foobar", "*");
   cr_assert(app != NULL);
   cr_assert_str_eq(app->name, "foobar");
-  cr_assert_str_eq(app->specialization, "*");
+  cr_assert_str_eq(app->topic, "*");
 }
 
 Test(appmodel, name_is_parsed_into_name_member)
@@ -36,13 +36,13 @@ Test(appmodel, name_is_parsed_into_name_member)
   cr_assert(app != NULL);
 }
 
-Test(appmodel, specialization_in_brackets_is_parsed_into_specialization)
+Test(appmodel, topic_in_brackets_is_parsed_into_topic)
 {
   Application *app;
 
   app = _parse_application("application name[port514] {};", "name", "port514");
   cr_assert(app != NULL);
-  cr_assert_str_eq(app->specialization, "port514");
+  cr_assert_str_eq(app->topic, "port514");
 }
 
 Test(appmodel, filter_expressions_can_be_specified_with_a_filter_keyword)
@@ -56,7 +56,7 @@ Test(appmodel, filter_expressions_can_be_specified_with_a_filter_keyword)
 "};",
   "name", "port514");
   cr_assert(app != NULL);
-  cr_assert_str_eq(app->specialization, "port514");
+  cr_assert_str_eq(app->topic, "port514");
   cr_assert_str_eq(app->filter_expr, " program(\"kernel\"); ");
 }
 
@@ -71,7 +71,7 @@ Test(appmodel, parser_expressions_can_be_specified_with_a_parser_keyword)
 "};",
   "name", "port514");
   cr_assert(app != NULL);
-  cr_assert_str_eq(app->specialization, "port514");
+  cr_assert_str_eq(app->topic, "port514");
   cr_assert_str_eq(app->parser_expr, " kv-parser(); ");
 }
 

@@ -48,25 +48,25 @@ _construct_app_parser(void)
 }
 
 static void
-_app_parser_generate(const gchar *specialization)
+_app_parser_generate(const gchar *topic)
 {
   CfgArgs *args = cfg_args_new();
 
-  cfg_args_set(args, "specialization", specialization);
+  cfg_args_set(args, "topic", topic);
   cfg_block_generator_generate(app_parser, configuration, args, result);
   cfg_args_unref(args);
 }
 
 static void
-_assert_config_is_valid(const gchar *specialization)
+_assert_config_is_valid(const gchar *topic)
 {
   const gchar *config_fmt = ""
 "parser p_test {\n"
-"    app-parser(specialization(\"%s\"));\n"
+"    app-parser(topic(\"%s\"));\n"
 "};\n";
   gchar *config;
 
-  config = g_strdup_printf(config_fmt, specialization);
+  config = g_strdup_printf(config_fmt, topic);
   cr_assert(parse_config(config, LL_CONTEXT_ROOT, NULL, NULL),
             "Parsing the given configuration failed: %s", config);
   g_free(config);
@@ -149,7 +149,7 @@ Test(app_parser_generator, app_parser_generates_references_to_apps)
   _assert_config_is_valid("port514");
 }
 
-Test(app_parser_generator, app_parser_uses_filter_or_parser_from_base_specializations)
+Test(app_parser_generator, app_parser_uses_filter_or_parser_from_base_topics)
 {
   _register_application("application foo[port514] {\n"
                         "};");
@@ -167,7 +167,7 @@ Test(app_parser_generator, app_parser_uses_filter_or_parser_from_base_specializa
   _assert_config_is_valid("port514");
 }
 
-Test(app_parser_generator, app_parser_base_specializations_are_skipped)
+Test(app_parser_generator, app_parser_base_topics_are_skipped)
 {
   _register_application("application foo[*] {\n"
                         "    filter { program('foo'); };\n"

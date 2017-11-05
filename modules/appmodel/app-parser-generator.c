@@ -31,7 +31,7 @@ typedef struct _AppParserGenerator
 {
   CfgBlockGenerator super;
   GString *block;
-  const gchar *specialization;
+  const gchar *topic;
 } AppParserGenerator;
 
 static const gchar *
@@ -80,7 +80,7 @@ _generate_application(Application *app, Application *base_app, gpointer user_dat
 {
   AppParserGenerator *self = (AppParserGenerator *) user_data;
 
-  if (strcmp(self->specialization, app->specialization) != 0)
+  if (strcmp(self->topic, app->topic) != 0)
     return;
 
   g_string_append(self->block, "channel {\n");
@@ -105,10 +105,10 @@ _generate(CfgBlockGenerator *s, GlobalConfig *cfg, CfgArgs *args, GString *resul
   AppParserGenerator *self = (AppParserGenerator *) s;
 
   g_assert(args != NULL);
-  self->specialization = cfg_args_get(args, "specialization");
-  if (!self->specialization)
+  self->topic = cfg_args_get(args, "topic");
+  if (!self->topic)
     {
-      msg_error("app-parser() requires a specialization() argument");
+      msg_error("app-parser() requires a topic() argument");
       return FALSE;
     }
 

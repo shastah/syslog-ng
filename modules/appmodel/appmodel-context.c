@@ -43,7 +43,7 @@ _application_equal(gconstpointer v1, gconstpointer v2)
   if (strcmp(r1->name, r2->name) != 0)
     return FALSE;
 
-  if (strcmp(r1->specialization, r2->specialization) != 0)
+  if (strcmp(r1->topic, r2->topic) != 0)
     return FALSE;
 
   return TRUE;
@@ -54,7 +54,7 @@ _application_hash(gconstpointer v)
 {
   Application *r = (Application *) v;
 
-  return g_str_hash(r->name) + g_str_hash(r->specialization);
+  return g_str_hash(r->name) + g_str_hash(r->topic);
 }
 
 void
@@ -78,12 +78,12 @@ appmodel_context_register_application(AppModelContext *self, Application *app)
 }
 
 Application *
-appmodel_context_lookup_application(AppModelContext *self, const gchar *name, const gchar *specialization)
+appmodel_context_lookup_application(AppModelContext *self, const gchar *name, const gchar *topic)
 {
   Application lookup_app = { 0 };
 
   lookup_app.name = (gchar *) name;
-  lookup_app.specialization = (gchar *) specialization;
+  lookup_app.topic = (gchar *) topic;
   return (Application *) g_hash_table_lookup(self->applications, &lookup_app);
 }
 
@@ -96,7 +96,7 @@ appmodel_context_iter_applications(AppModelContext *self, void (*foreach)(Applic
     {
       Application *app = g_ptr_array_index(self->application_ptrs, i);
 
-      if (strcmp(app->specialization, "*") == 0)
+      if (strcmp(app->topic, "*") == 0)
         continue;
 
       Application *base_app = appmodel_context_lookup_application(self, app->name, "*");

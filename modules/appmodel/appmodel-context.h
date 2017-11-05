@@ -31,7 +31,7 @@ typedef struct _AppModelContext AppModelContext;
 void appmodel_context_iter_applications(AppModelContext *self,
                                         void (*foreach)(Application *app, Application *base_app, gpointer user_data),
                                         gpointer user_data);
-Application *appmodel_context_lookup_application(AppModelContext *self, const gchar *name, const gchar *specialization);
+Application *appmodel_context_lookup_application(AppModelContext *self, const gchar *name, const gchar *topic);
 void appmodel_context_register_application(AppModelContext *self, Application *app);
 void appmodel_context_free(AppModelContext *self);
 AppModelContext *appmodel_context_new(void);

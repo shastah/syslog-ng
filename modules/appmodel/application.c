@@ -38,12 +38,12 @@ application_set_parser(Application *self, const gchar *parser_expr)
 }
 
 Application *
-application_new(const gchar *name, const gchar *specialization)
+application_new(const gchar *name, const gchar *topic)
 {
   Application *self = g_new0(Application, 1);
 
   self->name = g_strdup(name);
-  self->specialization = g_strdup(specialization);
+  self->topic = g_strdup(topic);
   return self;
 }
 
@@ -51,7 +51,7 @@ void
 application_free(Application *self)
 {
   g_free(self->name);
-  g_free(self->specialization);
+  g_free(self->topic);
   g_free(self->filter_expr);
   g_free(self->parser_expr);
   g_free(self);

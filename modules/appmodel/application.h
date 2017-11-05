@@ -29,7 +29,7 @@
 typedef struct _Application
 {
   gchar *name;
-  gchar *specialization;
+  gchar *topic;
   gchar *filter_expr;
   gchar *parser_expr;
 } Application;
@@ -37,7 +37,7 @@ typedef struct _Application
 void application_set_filter(Application *self, const gchar *filter_expr);
 void application_set_parser(Application *self, const gchar *parser_expr);
 
-Application *application_new(const gchar *name, const gchar *specialization);
+Application *application_new(const gchar *name, const gchar *topic);
 void application_free(Application *s);
 
 #endif
