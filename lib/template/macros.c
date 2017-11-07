@@ -320,32 +320,32 @@ log_macro_expand(GString *result, gint id, gboolean escape, const LogTemplateOpt
         }
       break;
     case M_MSGHDR:
-      {
-        gssize len;
-        const gchar *p;
+    {
+      gssize len;
+      const gchar *p;
 
-        p = log_msg_get_value(msg, LM_V_LEGACY_MSGHDR, &len);
-        if (len > 0)
-          result_append(result, p, len, escape);
-        else
-          {
-            /* message, complete with program name and pid */
-            len = result->len;
-            _result_append_value(result, msg, LM_V_PROGRAM, escape);
-            if (len != result->len)
-              {
-                const gchar *pid = log_msg_get_value(msg, LM_V_PID, &len);
-                if (len > 0)
-                  {
-                    result_append(result, "[", 1, FALSE);
-                    result_append(result, pid, len, escape);
-                    result_append(result, "]", 1, FALSE);
-                  }
-                result_append(result, ": ", 2, FALSE);
-              }
-          }
-        break;
-      }
+      p = log_msg_get_value(msg, LM_V_LEGACY_MSGHDR, &len);
+      if (len > 0)
+        result_append(result, p, len, escape);
+      else
+        {
+          /* message, complete with program name and pid */
+          len = result->len;
+          _result_append_value(result, msg, LM_V_PROGRAM, escape);
+          if (len != result->len)
+            {
+              const gchar *pid = log_msg_get_value(msg, LM_V_PID, &len);
+              if (len > 0)
+                {
+                  result_append(result, "[", 1, FALSE);
+                  result_append(result, pid, len, escape);
+                  result_append(result, "]", 1, FALSE);
+                }
+              result_append(result, ": ", 2, FALSE);
+            }
+        }
+      break;
+    }
     case M_MESSAGE:
       _result_append_value(result, msg, LM_V_MESSAGE, escape);
       break;
