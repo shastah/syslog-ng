@@ -88,7 +88,8 @@ appmodel_context_lookup_application(AppModelContext *self, const gchar *name, co
 }
 
 void
-appmodel_context_iter_applications(AppModelContext *self, void (*foreach)(Application *app, Application *base_app, gpointer user_data), gpointer user_data)
+appmodel_context_iter_applications(AppModelContext *self, void (*foreach)(Application *app, Application *base_app,
+                                   gpointer user_data), gpointer user_data)
 {
   gint i;
 

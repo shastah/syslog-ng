@@ -50,11 +50,11 @@ Test(appmodel, filter_expressions_can_be_specified_with_a_filter_keyword)
   Application *app;
 
   app = _parse_application(
-"application name[port514] {"
-"  filter { program(\"kernel\"); };"
-"  parser { kv-parser(); };"
-"};",
-  "name", "port514");
+          "application name[port514] {"
+          "  filter { program(\"kernel\"); };"
+          "  parser { kv-parser(); };"
+          "};",
+          "name", "port514");
   cr_assert(app != NULL);
   cr_assert_str_eq(app->topic, "port514");
   cr_assert_str_eq(app->filter_expr, " program(\"kernel\"); ");
@@ -65,11 +65,11 @@ Test(appmodel, parser_expressions_can_be_specified_with_a_parser_keyword)
   Application *app;
 
   app = _parse_application(
-"application name[port514] {"
-"  parser { kv-parser(); };"
-"  filter { program(\"kernel\"); };"
-"};",
-  "name", "port514");
+          "application name[port514] {"
+          "  parser { kv-parser(); };"
+          "  filter { program(\"kernel\"); };"
+          "};",
+          "name", "port514");
   cr_assert(app != NULL);
   cr_assert_str_eq(app->topic, "port514");
   cr_assert_str_eq(app->parser_expr, " kv-parser(); ");

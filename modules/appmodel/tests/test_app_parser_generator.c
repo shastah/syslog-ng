@@ -59,9 +59,9 @@ static void
 _assert_config_is_valid(const gchar *topic)
 {
   const gchar *config_fmt = ""
-"parser p_test {\n"
-"    app-parser(topic(\"%s\"));\n"
-"};\n";
+                            "parser p_test {\n"
+                            "    app-parser(topic(\"%s\"));\n"
+                            "};\n";
   gchar *config;
 
   config = g_strdup_printf(config_fmt, topic);
@@ -101,7 +101,8 @@ _assert_application_is_present(const gchar *application)
 static void
 _assert_parser_framing_is_present(void)
 {
-  cr_assert(g_str_has_prefix(result->str, "\nchannel"), "Cannot find app-parser() framing (prefix) >>>%s<<<", result->str);
+  cr_assert(g_str_has_prefix(result->str, "\nchannel"), "Cannot find app-parser() framing (prefix) >>>%s<<<",
+            result->str);
   cr_assert(g_str_has_suffix(result->str, "};\n}"), "Cannot find app-parser() framing (suffix): >>>%s<<<", result->str);
 }
 
