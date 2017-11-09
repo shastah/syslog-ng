@@ -42,9 +42,7 @@ _register_application(const char *appmodel)
 static CfgBlockGenerator *
 _construct_app_parser(void)
 {
-  CfgBlockGenerator *app_parser = app_parser_generator_new(LL_CONTEXT_PARSER, "app-parser");
-
-  return app_parser;
+  return app_parser_generator_new(LL_CONTEXT_PARSER, "app-parser");
 }
 
 static void
